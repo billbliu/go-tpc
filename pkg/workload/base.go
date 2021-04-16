@@ -11,11 +11,14 @@ import (
 
 // TpcState saves state for each thread
 type TpcState struct {
-	DB   *sql.DB
+	// 数据库实例
+	DB *sql.DB
+	// 数据库连接实例
 	Conn *sql.Conn
 
+	// 随机数
 	R *rand.Rand
-
+	// buffer分配器
 	Buf *util.BufAllocator
 }
 

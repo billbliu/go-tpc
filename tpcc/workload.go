@@ -46,31 +46,48 @@ type tpccState struct {
 
 // Config is the configuration for tpcc workload
 type Config struct {
-	DBName     string
-	Threads    int
-	Parts      int
+	// 数据库名
+	DBName string
+	// 并发线程数
+	Threads int
+	// 分区仓库的编号
+	Parts int
+	// 仓库数量
 	Warehouses int
-	UseFK      bool
-	Isolation  int
-	CheckAll   bool
-	NoCheck    bool
+
+	// 使用外键(foreign key)
+	UseFK bool
+	// 隔离级别
+	Isolation int
+	// 运行所有一致性检查
+	CheckAll bool
+	// tpcc准备检查,默认未false
+	NoCheck bool
 
 	// whether to involve wait times(keying time&thinking time)
+	// 包括TPC-C标准规范中描述的keying & thinking 时间
 	Wait bool
 
+	// 最大测量延迟(以毫秒为单位)
 	MaxMeasureLatency time.Duration
 
 	// for prepare sub-command only
-	OutputType      string
-	OutputDir       string
+	// 输出文件类型,如果为空,则加载数据到db.目前只支持csv格式
+	OutputType string
+	// 如果指定，用于生成文件的输出目录
+	OutputDir string
+	// 指定生成文件的表，用','分隔。仅当设置了output时有效。如果没有设置此标志，默认情况下生成所有表
 	SpecifiedTables string
 
 	// connection, retry count when commiting statement fails, default 0
-	PrepareRetryCount    int
+	// 发生错误时重试次数
+	PrepareRetryCount int
+	// 每次重试的时间间隔
 	PrepareRetryInterval time.Duration
 }
 
 // Workloader is TPCC workload
+// tpcc工作加载者
 type Workloader struct {
 	db *sql.DB
 

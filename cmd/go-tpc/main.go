@@ -17,26 +17,45 @@ import (
 )
 
 var (
-	dbName         string
-	host           string
-	port           int
-	user           string
-	password       string
-	threads        int
-	acThreads      int
-	driver         string
-	totalTime      time.Duration
-	totalCount     int
-	dropData       bool
-	ignoreError    bool
+	// 数据库名
+	dbName string
+	// 数据库主机host地址
+	host string
+	// 数据库端口号
+	port int
+	// 数据库用户
+	user string
+	// 用户密码
+	password string
+	// 并发线程数
+	threads int
+	// OLAP客户端并发，仅用于CH-benCHmark
+	acThreads int
+	// 数据库驱动
+	driver string
+	// 总执行时间
+	totalTime time.Duration
+	// 总执行计数，0表示无限
+	totalCount int
+	// 在准备之前清理数据
+	dropData bool
+	// 运行工作负载时忽略错误
+	ignoreError bool
+	// 输出间隔时间
 	outputInterval time.Duration
+	// 隔离级别
 	isolationLevel int
-	silence        bool
-	pprofAddr      string
-	metricsAddr    string
-	maxProcs       int
-
-	globalDB  *sql.DB
+	// 运行工作负载时不打印错误
+	silence bool
+	// pprof端点的地址
+	pprofAddr string
+	// metrics端点的地址
+	metricsAddr string
+	// 最大cpu数(Go 1.5开始,Go的GOMAXPROCS默认值已经设置为 CPU的核数)
+	maxProcs int
+	// 全局数据库db实例
+	globalDB *sql.DB
+	// 全局上下文实例
 	globalCtx context.Context
 )
 

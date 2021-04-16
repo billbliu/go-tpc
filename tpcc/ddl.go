@@ -5,6 +5,8 @@ import (
 	"fmt"
 )
 
+// DDL（Data Definition Language）数据库定义语言
+// https://www.cnblogs.com/henryhappier/archive/2010/07/05/1771295.html
 const (
 	tableItem      = "item"
 	tableCustomer  = "customer"
@@ -18,7 +20,9 @@ const (
 )
 
 type ddlManager struct {
+	// Hash分区仓库的编号
 	parts int
+	// 使用外键(foreign key)
 	useFK bool
 }
 
@@ -40,6 +44,7 @@ func (w *ddlManager) appendPartition(query string, partKeys string) string {
 		return query
 	}
 
+	// TiDB Hash分区：https://docs.pingcap.com/zh/tidb/stable/partitioned-table
 	return fmt.Sprintf("%s\n PARTITION BY HASH(%s)\n PARTITIONS %d", query, partKeys, w.parts)
 }
 
